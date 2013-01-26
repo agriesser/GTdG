@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: QSESGeneticTestData
+Bundle-SymbolicName: QSESGeneticTestData;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.ui;bundle-version="3.103.0",
+ org.eclipse.jdt;bundle-version="3.8.0",
+ org.eclipse.jdt.core;bundle-version="3.8.2",
+ org.eclipse.core.runtime;bundle-version="3.8.0",
+ org.eclipse.jface.text;bundle-version="3.8.1",
+ org.eclipse.jdt.launching;bundle-version="3.6.100"
+Export-Package: de.tub.qses.generictestdata.annotations;version="0.0.1"
+Bundle-ClassPath: lib/jgap.jar,
+ .

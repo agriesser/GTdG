@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="de.tub.qses.genetictestdata.instrumentate"
+            name="Generate instrumentated file.">
+      </command>
+      <command
+            id="de.tub.qses.genetictestdata.runTest"
+            name="Run the JGAP Tests on a instrumentated file.">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="de.tub.qses.generictestdata.handlers.TestCommandHandler"
+            commandId="de.tub.qses.genetictestdata.runTest">
+      </handler>
+      <handler
+            class="de.tub.qses.generictestdata.handlers.InstrumentateCommandHandler"
+            commandId="de.tub.qses.genetictestdata.instrumentate">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <command
+               commandId="de.tub.qses.genetictestdata.instrumentate"
+               label="Instrumentate"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.jdt.core.ICompilationUnit">
+                  </adapt>
+               </iterate>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="de.tub.qses.genetictestdata.runTest"
+               label="Run JGAP Test"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.jdt.core.ICompilationUnit">
+                  </adapt>
+               </iterate>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>
