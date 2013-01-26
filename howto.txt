@@ -1,0 +1,16 @@
+How to use?
+
+Step (1)
+Import project into Eclipse with installed PDE and JDT.
+Step (2)
+Export the project as JAR file.
+Step (3)
+Start a new Eclipse Application from the imported project.
+Step (4)
+Create a new Java project within this new Eclipse instance and add the previously exported JAR file form step 2 to the classpath.
+Step (5)
+Create a simple java class without any internal state at least not used by the method you want to test.
+Step (6)
+Open the context menu of the newly created file and click on "Instrumentate". A new file will be created with an instrumentated version of your class.
+Step (7)
+Open the context menu on the instrumentated class and click on Run JGAP. The genetic algorithm will then try to find input values that will ensure complete branch coverage of the instrumentated class.
