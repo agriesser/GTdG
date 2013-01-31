@@ -20,12 +20,14 @@ public class EclipseClassloaderUtil {
 			List<URL> urlList = new ArrayList<URL>();
 			for (int i = 0; i < cpEntries.length; i++) {
 				String entry = cpEntries[i];
-				IPath path = new Path(entry);
-				urlList.add(path.toFile().toURI().toURL());
+				if (!entry.contains("jgaptesting.jar")) {
+					IPath path = new Path(entry);
+					urlList.add(path.toFile().toURI().toURL());
+				}
 			}
 			ClassLoader parentCL = project.getClass().getClassLoader();
 			URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
-			return new URLClassLoader(urls, parentCL);
+			return new URLClassLoader(urls, EclipseClassloaderUtil.class.getClassLoader());
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {

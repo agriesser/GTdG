@@ -10,6 +10,7 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.103.0",
  org.eclipse.core.runtime;bundle-version="3.8.0",
  org.eclipse.jface.text;bundle-version="3.8.1",
  org.eclipse.jdt.launching;bundle-version="3.6.100"
-Export-Package: de.tub.qses.generictestdata.annotations;version="0.0.1"
+Export-Package: de.tub.qses.generictestdata.annotations;version="0.0.1",
+ de.tub.qses.generictestdata.util;version="0.0.1"
 Bundle-ClassPath: lib/jgap.jar,
  .

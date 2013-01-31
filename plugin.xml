@@ -11,6 +11,10 @@
             id="de.tub.qses.genetictestdata.runTest"
             name="Run the JGAP Tests on a instrumentated file.">
       </command>
+      <command
+            id="de.tub.qses.genetictestdata.geneticGeneration"
+            name="Generate test data genetically.">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -22,43 +26,53 @@
             class="de.tub.qses.generictestdata.handlers.InstrumentateCommandHandler"
             commandId="de.tub.qses.genetictestdata.instrumentate">
       </handler>
+      <handler
+            class="de.tub.qses.generictestdata.handlers.GeneticTestCommandHandler"
+            commandId="de.tub.qses.genetictestdata.geneticGeneration">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
             locationURI="popup:org.eclipse.ui.popup.any">
-         <command
-               commandId="de.tub.qses.genetictestdata.instrumentate"
-               label="Instrumentate"
-               style="push">
+         <menu
+               label="QSES presentation">
+            <command
+                  commandId="de.tub.qses.genetictestdata.runTest"
+                  label="Run Random Test Data Generation"
+                  style="push">
+            </command>
+            <command
+                  commandId="de.tub.qses.genetictestdata.geneticGeneration"
+                  label="Run genetic test data generation"
+                  style="push">
+            </command>
+            <command
+                  commandId="de.tub.qses.genetictestdata.instrumentate"
+                  label="Instrumentate"
+                  style="push">
+            </command>
             <visibleWhen
                   checkEnabled="false">
                <iterate
                      ifEmpty="false"
                      operator="or">
-                  <adapt
-                        type="org.eclipse.jdt.core.ICompilationUnit">
-                  </adapt>
+                  <instanceof
+                        value="org.eclipse.jdt.core.ICompilationUnit">
+                  </instanceof>
                </iterate>
             </visibleWhen>
-         </command>
-         <command
-               commandId="de.tub.qses.genetictestdata.runTest"
-               label="Run JGAP Test"
-               style="push">
-            <visibleWhen
-                  checkEnabled="false">
-               <iterate
-                     ifEmpty="false"
-                     operator="or">
-                  <adapt
-                        type="org.eclipse.jdt.core.ICompilationUnit">
-                  </adapt>
-               </iterate>
-            </visibleWhen>
-         </command>
+         </menu>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="de.tub.qses.generictestdata.eclipse.Configuration"
+            id="QSESGeneticTestData.page1"
+            name="QSES Demonstration Configuration">
+      </page>
    </extension>
 
 </plugin>

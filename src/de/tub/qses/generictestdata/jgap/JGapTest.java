@@ -39,14 +39,11 @@ public class JGapTest {
 	
 	private Genotype population;
 	
-	public Set<String> getVisitedBranches() {
-		return visitedBranches;
-	}
-
 	private int evoluationCount = DEFAULT_EVOLUTION_COUNT;
 	private BranchCoverageFitnessEvaluator evaluator;
 	
 	private Set<String> visitedBranches = new HashSet<String>();
+	private String[] branchesToVisit = null;
 	
 	public JGapTest(final Class<?> classUnderTest, final Method methodUnderTest) {
 		this.classUnderTest = classUnderTest;
@@ -66,9 +63,9 @@ public class JGapTest {
 		}
 		Configuration.reset();
 		
-		String[] branches = getBranchesOfMethod(methodUnderTest);
+		branchesToVisit = getBranchesOfMethod(methodUnderTest);
 		
-		evaluator = new BranchCoverageFitnessEvaluator(branches);
+		evaluator = new BranchCoverageFitnessEvaluator(branchesToVisit);
 		jgapConfiguration.setFitnessEvaluator(evaluator);
 		jgapConfiguration.setPreservFittestIndividual(false);
 		jgapConfiguration.setKeepPopulationSizeConstant(false);
@@ -85,6 +82,36 @@ public class JGapTest {
 		}
 		
 		
+	}
+	
+	public boolean allBranchesVisited() {
+		Set<String> visitedCopy = new HashSet<String>();
+		visitedCopy.addAll(visitedBranches);
+		for (String branchToVisit : branchesToVisit) {
+			for (Iterator<String> visitedIt = visitedCopy.iterator(); visitedIt.hasNext();) {
+				if (visitedIt.next().equals(branchToVisit)) {
+					visitedIt.remove();
+					break;
+				}
+			}
+		}
+		return visitedCopy.size() == 0;
+	}
+	
+	public Set<String> getVisitedBranches() {
+		return visitedBranches;
+	}
+	
+	public void evolve() {
+		population.evolve();
+	}
+	
+	public int getEvoluationCount() {
+		return evoluationCount;
+	}
+
+	public void setEvoluationCount(int evoluationCount) {
+		this.evoluationCount = evoluationCount;
 	}
 	
 	private String[] getBranchesOfMethod(Method methodUnderTest2) {
@@ -112,18 +139,6 @@ public class JGapTest {
 			}
 		}
 		return branches;
-	}
-
-	public void evolve() {
-		population.evolve();
-	}
-	
-	public int getEvoluationCount() {
-		return evoluationCount;
-	}
-
-	public void setEvoluationCount(int evoluationCount) {
-		this.evoluationCount = evoluationCount;
 	}
 
 	private IChromosome createSampleChromosone(Configuration config, Class<?>[] methodParameters) throws InvalidConfigurationException {
